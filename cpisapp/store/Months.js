@@ -1,3 +1,6 @@
+/**
+ * This class represents a gregorian calendar month
+ */
 Ext.define('CPIS.store.Months', {
     extend: 'Ext.data.Store',
     requires: 'CPIS.model.Month',

@@ -18,15 +18,4 @@ Ext.define('CPIS.store.IssuesReceived', {
 			root : 'issuesreceived'
 		}
 	}
-    //,
-//	listeners : {
-//		'load' : {
-//			fn : function(store, records, options) {
-//				store.each(function(obj){
-//                    
-//                });
-//			},
-//			scope: this
-//		}
-//	}
 });
