@@ -68,18 +68,19 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	onIssueReceivedStoreLoad : function(store, records, options) {
 		var fields = [];
 		store.each(function(issuecategory) {
-			var obj = {};
+			var obj = new Object();
 			obj['categoryname'] = issuecategory.data.categoryname;
-			Ext.each(issuecategory.raw.divisions,
-					function(data, index) {
-						obj[data.divisionName] = data.issueCount;
-					});
+            var dispFields = [];
+			Ext.each(issuecategory.raw.divisions, function(data, index) {
+			    obj[data.divisionName] = data.issueCount;
+		        dispFields.push(data.divisionName);
+			});
+            obj['displayfields'] = dispFields;
 			fields.push(obj);
 		});
 		console.log(fields);
-        //var stackedBarChartStore = this.getStackedBarChartStoreStore();
-        //stackedBarChartStore.loadData(fields);
-        Ext.data.StoreManager.lookup('StackedBarChartStore').loadRawData(fields);
-        //console.log(stackedBarChartStore);
+        var stackedBarChartStore = this.getStackedBarChartStoreStore();
+        stackedBarChartStore.loadData(fields);
+        console.log(stackedBarChartStore);
 	}
 });
