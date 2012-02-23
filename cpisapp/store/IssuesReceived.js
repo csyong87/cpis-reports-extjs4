@@ -17,13 +17,16 @@ Ext.define('CPIS.store.IssuesReceived', {
 			type : 'json',
 			root : 'issuesreceived'
 		}
-	},
-	listeners : {
-		'load' : {
-			fn : function(store, records, options) {
-				alert('load completed');
-			},
-			scope: this
-		}
 	}
+    //,
+//	listeners : {
+//		'load' : {
+//			fn : function(store, records, options) {
+//				store.each(function(obj){
+//                    
+//                });
+//			},
+//			scope: this
+//		}
+//	}
 });
