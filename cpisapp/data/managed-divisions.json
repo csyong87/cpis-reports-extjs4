@@ -1,0 +1,25 @@
+{
+	success: true,
+	divisionlist:
+	[
+		{
+			divisionCode: 'all',
+			divisionName: 'All'
+		},{
+			divisionCode: 'CDCC1',
+			divisionName: 'Central'
+		},
+		{
+			divisionCode: 'CDCC2',
+			divisionName: 'South East'
+		},
+		{
+			divisionCode: 'CDCC3',
+			divisionName: 'South West'
+		},
+		{
+			divisionCode: 'CDCC4',
+			divisionName: 'North East'
+		}
+	]
+}

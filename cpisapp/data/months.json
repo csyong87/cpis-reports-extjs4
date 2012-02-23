@@ -1,0 +1,66 @@
+{
+	success: true,
+	monthlist:
+	[
+		{
+			monthIndex: 1,
+			monthLongName: 'January',
+			monthShortName: 'Jan'
+		},
+		{
+			monthIndex: 2,
+			monthLongName: 'February',
+			monthShortName: 'Feb'
+		},
+		{
+			monthIndex: 3,
+			monthLongName: 'March',
+			monthShortName: 'Mar'
+		},
+		{
+			monthIndex: 4,
+			monthLongName: 'April',
+			monthShortName: 'Apr'
+		},
+		{
+			monthIndex: 5,
+			monthLongName: 'May',
+			monthShortName: 'May'
+		},
+		{
+			monthIndex: 6,
+			monthLongName: 'June',
+			monthShortName: 'Jun'
+		},
+		{
+			monthIndex: 7,
+			monthLongName: 'July',
+			monthShortName: 'Jul'
+		},
+		{
+			monthIndex: 8,
+			monthLongName: 'August',
+			monthShortName: 'Aug'
+		},
+		{
+			monthIndex: 9,
+			monthLongName: 'September',
+			monthShortName: 'Sep'
+		},
+		{
+			monthIndex: 10,
+			monthLongName: 'October',
+			monthShortName: 'Oct'
+		},
+		{
+			monthIndex: 11,
+			monthLongName: 'November',
+			monthShortName: 'Nov'
+		},
+		{
+			monthIndex: 12,
+			monthLongName: 'December',
+			monthShortName: 'Dec'
+		}
+	]
+}

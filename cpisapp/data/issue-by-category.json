@@ -1,0 +1,26 @@
+{
+	success: true,
+	chartdata:
+	[
+		{
+			category: 'Traffic Mgt',
+			count: 70
+		},
+		{
+			category: 'Train Service',
+			count: 130
+		},
+		{
+			category: 'Pedestrian Traffic',
+			count: 80
+		},
+		{
+			category: 'Bus Service',
+			count: 123
+		},
+		{
+			category: 'Motorized Vehicle',
+			count: 99
+		}
+	]
+}
