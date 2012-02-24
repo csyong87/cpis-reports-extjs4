@@ -16,9 +16,6 @@ Ext.define('CPIS.view.numissuesreceived.Viewport', {
             items: [{
                 width: 800,
                 xtype: 'numissuesreceivedsearchform'
-            },{
-            	width: 800,
-            	xtype: 'issuesreceivedchart'
             }]
         };
 		

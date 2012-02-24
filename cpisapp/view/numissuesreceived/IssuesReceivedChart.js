@@ -13,7 +13,7 @@ Ext.define('CPIS.view.numissuesreceived.IssuesReceivedChart', {
     axes: [{
         type: 'Numeric',
         position: 'bottom',
-        fields: ['divisions.divisionName'],
+        fields: ['Field1', 'Field2', 'Field3'],
         title: false,
         grid: true,
         label: {
@@ -33,7 +33,7 @@ Ext.define('CPIS.view.numissuesreceived.IssuesReceivedChart', {
         axis: 'bottom',
         gutter: 80,
         xField: 'categoryname',
-        yField: ['divisions.issueCount'],
+        yField: ['sample'],
         stacked: true,
         tips: {
             trackMouse: true,
