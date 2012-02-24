@@ -8,10 +8,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	refs : [{
 		selector : 'numissuesreceivedsearchform',
 		ref : 'numissuesreceivedsearchform'
-	}, {
-		selector : 'numissuesreceivedsearchform combobox[name=division]',
-		ref : 'selDivision'
-	}, {
+	},{
 		selector : 'numissuesreceivedsearchform combobox[name=month]',
 		ref : 'selMonth'
 	}, {
@@ -23,12 +20,12 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	}, {
 		selector: 'viewport > panel',
 		ref: 'viewPort'
-	}],
+	}, {
+        selector: '#issuesreceivedtabledata',
+        ref: 'tableData'
+    }],
 	stores : ['Divisions', 'IssuesReceived', 'Months', 'Years'],
 	onLaunch : function() {
-		var divisionsStore = this.getDivisionsStore();
-		divisionsStore.load();
-
 		var monthsStore = this.getMonthsStore();
 		monthsStore.load();
 
@@ -64,6 +61,8 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	 * Transforms the data from a nested model (IssuesReceived <- Division) to a
 	 * flat model and
 	 * 
+     * - Do i care to move the content of this method to a helper class? Lols
+     * 
 	 * @param {}
 	 *            store
 	 * @param {}
@@ -72,45 +71,46 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	 *            options
 	 */
 	onIssueReceivedStoreLoad : function(store, records, options) {
-		var fields = [];
-		var data = [];
-		var data_fields = [];
-        var legend = [];
+		var fields = []; //used to configure the fields of the dynamic model
+		var data = []; //Holds the chart's data
+		var data_fields = []; //Since a javascript object property cannot have spaces, we need to mask it
+        var legend = []; //Holds the chart's legend array
+       
 		var hasIdentifiedFields = false;
+        var fieldAliasToDisplayName = new Object();
+        
 		fields.push({name: 'categoryname', type: 'String'});
 		store.each(function(issuecategory) {
 			var obj = new Object();
 			obj['categoryname'] = issuecategory.data.categoryname;
-           
-			var dataIdxFields = [];
-			
 			Ext.each(issuecategory.raw.divisions, function(data, index) {
-			    obj['data_idx_' + index] = data.issueCount;
+                // define the field alias
+                var fieldname = 'data_idx_' + index;
 			    
+                obj[fieldname] = data.issueCount;
+                
 			    if(!hasIdentifiedFields){
-			    	fields.push({name : 'data_idx_' + index, type: 'String'});
+			    	fields.push({name : fieldname, type: 'String'});
                     legend.push(data.divisionName);
+                    fieldAliasToDisplayName[fieldname] = data.divisionName;
 			    }
+                
 			    var isNew = true;
-			    for(i = 0; i < data_fields.length; i++) {
-			    	if('data_idx_' + index == data_fields[i]) {
+			    for(var i = 0; i < data_fields.length; i++) {
+			    	if(fieldname == data_fields[i]) {
 			    		isNew = false;
 			    	}
 			    }
 			    
 			    if(isNew){
-			    	data_fields.push('data_idx_' + index);
+			    	data_fields.push(fieldname);
+                    
 			    }
-			    
-		       
-		        
-				dataIdxFields.push('data_idx_' + index);
 			});
 			
 			hasIdentifiedFields = true;
 			
 			data.push(obj);
-			
 		});
 		
 		var model = Ext.define('DynamicModel', {
@@ -186,10 +186,56 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		    }]
 		});
 		
+        var columns = []; //Holds the dynamic table's columns
+        
+        //iterate through the data records
+        Ext.each(data, function(data_obj, index){
+            
+            //define the first column
+            var category_column = {
+                text: 'Issue Category',
+                width: 298,
+                sortable: false,
+                hideable: false,
+                dataIndex: 'categoryname'
+            };
+            
+            //the dynamic columns
+            var statistics_column = [];
+            for (var field in fieldAliasToDisplayName){
+                statistics_column.push({
+                    text: fieldAliasToDisplayName[field],
+                    width: 100,
+                    sortable: false,
+                    hideable: false,
+                    dataIndex: field
+                });
+            }
+            
+            columns.push([
+                category_column,
+                statistics_column
+            ]);
+            
+            return false;
+        });
+        
+        console.log(columns);
+        
+        var tableData = Ext.create('Ext.grid.Panel', {
+            id: 'issuesreceivedtabledata',
+		    store: dynaStore,
+		    width: '100%',
+		    height: 200,
+		    title: 'Issues Received by Division',
+		    columns: columns
+		});
+        
 		var viewPort = this.getViewPort();
         viewPort.remove(this.getStackedBarChart());
+        viewPort.remove(this.getTableData());
 		viewPort.add(new stackedBar());
-		
+		viewPort.add(tableData);
 		
 	}
 });

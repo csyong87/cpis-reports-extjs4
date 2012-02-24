@@ -15,24 +15,6 @@ Ext.define('CPIS.view.numissuesreceived.SearchForm', {
 	defaultType: 'textfield',
 	items: [{
 		xtype: 'combobox',
-		fieldLabel: 'Division',
-		name: 'division',
-		store: 'Divisions',
-		displayField: 'divisionName',
-	    valueField: 'divisionCode',
-	    queryMode: 'local',
-	    allowBlank: false,
-	    baseCls: 'fwd_floatLeft',
-		anchor: '25%',
-		labelWidth: 70,
-		validator: function(val){
-			if(val == null) {
-				return 'This field is required';
-			}
-			return true;
-		}
-	},{
-		xtype: 'combobox',
 		fieldLabel: 'Month',
 		name: 'month',
 		store: 'Months',

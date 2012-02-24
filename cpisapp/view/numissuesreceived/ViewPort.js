@@ -1,8 +1,7 @@
 Ext.define('CPIS.view.numissuesreceived.Viewport', {
     extend: 'Ext.container.Viewport',
 	requires: [
-        'CPIS.view.numissuesreceived.SearchForm',
-        'CPIS.view.numissuesreceived.IssuesReceivedChart'
+        'CPIS.view.numissuesreceived.SearchForm'
     ],
 	layout: 'fit',
 	initComponent: function() {
