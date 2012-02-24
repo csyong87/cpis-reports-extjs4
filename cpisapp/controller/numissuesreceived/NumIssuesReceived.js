@@ -24,7 +24,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		selector: 'viewport > panel',
 		ref: 'viewPort'
 	}],
-	stores : ['Divisions', 'IssuesReceived', 'Months', 'Years', 'StackedBarChartStore'],
+	stores : ['Divisions', 'IssuesReceived', 'Months', 'Years'],
 	onLaunch : function() {
 		var divisionsStore = this.getDivisionsStore();
 		divisionsStore.load();
@@ -74,23 +74,22 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	onIssueReceivedStoreLoad : function(store, records, options) {
 		var fields = [];
 		var data = [];
-		var yAxisLabel = [];
 		var data_fields = [];
-		
+        var legend = [];
 		var hasIdentifiedFields = false;
 		fields.push({name: 'categoryname', type: 'String'});
 		store.each(function(issuecategory) {
 			var obj = new Object();
 			obj['categoryname'] = issuecategory.data.categoryname;
-            var dispFields = [];
+           
 			var dataIdxFields = [];
-			yAxisLabel = [];
 			
 			Ext.each(issuecategory.raw.divisions, function(data, index) {
 			    obj['data_idx_' + index] = data.issueCount;
 			    
 			    if(!hasIdentifiedFields){
 			    	fields.push({name : 'data_idx_' + index, type: 'String'});
+                    legend.push(data.divisionName);
 			    }
 			    var isNew = true;
 			    for(i = 0; i < data_fields.length; i++) {
@@ -103,26 +102,17 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 			    	data_fields.push('data_idx_' + index);
 			    }
 			    
-		        dispFields.push(data.divisionName);
-		        yAxisLabel.push(data.divisionName);
+		       
+		        
 				dataIdxFields.push('data_idx_' + index);
 			});
 			
-			
-//			 if(!hasIdentifiedFields){
-//	            obj['displayfields'] = dispFields;
-//	            fields.push({name:'displayfields', type: 'auto'});
-//				obj['datafields'] = dataIdxFields;
-//				fields.push({name : 'datafields', type: 'auto'});
-//			 }
-			 
 			hasIdentifiedFields = true;
 			
 			data.push(obj);
 			
 		});
-		console.log(data);
-		console.log(fields);
+		
 		var model = Ext.define('DynamicModel', {
 			extend : 'Ext.data.Model',
 			fields: fields
@@ -130,8 +120,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		
 		var dataWrapper = new Object();
 		dataWrapper['data'] = data;
-		
-		console.log(dataWrapper);
 		
 		//dynamic store
 		var dynaStore = Ext.define('DynaStore', {
@@ -149,10 +137,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		});
 		
 		dynaStore = new dynaStore();
-		console.log('dynastore: ' + dynaStore);
-//		var dynaStore = Ext.create('CPIS.store.StackedBarChartStore');
-//		dynaStore.data = dataWrapper;
-		console.log(data_fields);
 		var stackedBar = Ext.define('StackedBar', {
 			extend: 'Ext.chart.Chart',
 			alias: 'widget.issuesreceivedchart',
@@ -167,7 +151,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		    },
 		    axes: [{
 		        type: 'Numeric',
-		        position: 'bottom',
+		        position: 'left',
 		        fields: data_fields,
 		        title: false,
 		        grid: true,
@@ -179,30 +163,31 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		        roundToDecimal: false
 		    }, {
 		        type: 'Category',
-		        position: 'left',
+		        position: 'bottom',
 		        fields: ['categoryname'],
 		        title: false
 		    }],
 		    series: [{
-		        type: 'bar',
+		        type: 'column',
 		        axis: 'bottom',
 		        gutter: 80,
 		        xField: 'categoryname',
 		        yField: data_fields,
+                title: legend,
 		        stacked: true,
-		        orientation: 'vertical',
 		        tips: {
 		            trackMouse: true,
-		            width: 65,
+		            width: 80,
 		            height: 28,
 		            renderer: function(storeItem, item) {
-		                this.setTitle(String(item.value[1]));
+		                this.setTitle(String(item.value[1]) + ' issues');
 		            }
 		        }
 		    }]
 		});
 		
 		var viewPort = this.getViewPort();
+        viewPort.remove(this.getStackedBarChart());
 		viewPort.add(new stackedBar());
 		
 		
