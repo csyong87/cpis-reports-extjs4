@@ -80,30 +80,35 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         
 		var hasIdentifiedFields = false;
         var fieldAliasToDisplayName = new Object();
-        
+        var categoryIdxLabelMap = new Object();
         // the array used to hold the field definitions for the dynamic model used by the issues received chart 
 		var fields = [{name: 'categoryname', type: 'String'}];
         
         // the array used to hold the field definitions for the dynamic model used by the issues received summary
-        var summary_fields = [{name: 'division', type: 'String'}, {name: 'issuesClosed', type: 'int'}];
+        var summary_fields = [{name: 'division', type: 'String'}];
         
-        //
+        // The object to hold the total of issues closed per category
+        var issuesClosed = new Object({'division' : 'Total Issues Closed'});
+        
         //{division, total_1, total_2, total_3}
-        //
         var summary_data = [];
-		store.each(function(issuecategory, categoryIdx) {
+		
+        store.each(function(issuecategory, categoryIdx) {
 			var obj = new Object();
 			obj['categoryname'] = issuecategory.data.categoryname;
             
             var categoryIdxField = 'category_' + categoryIdx;
             summary_fields.push({name: categoryIdxField, type: 'String'});
+            categoryIdxLabelMap[categoryIdxField] = issuecategory.data.categoryname;
             
-           
+            var totalIssuesClosed = 0;
 			Ext.each(issuecategory.raw.divisions, function(data, index) {
                 // define the field alias
                 var fieldname = 'data_idx_' + index;
 			    
                 obj[fieldname] = data.issueCount;
+                
+                totalIssuesClosed += data.issuesClosed;
                 
                 //check if we have an instance of the division
                 var summaryDataFound = -1;
@@ -119,7 +124,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
                     //cool, we just have to pull up that record, add up the issues closed
                     //and create a new field for the new category and assign the issue count
                     var summaryObj = summary_data[i];
-                    summaryObj['issuesClosed'] =  summaryObj['issuesClosed'] + data.issuesClosed;
+                    //summaryObj['issuesClosed'] =  summaryObj['issuesClosed'] + data.issuesClosed;
                     summaryObj[categoryIdxField] = data.issueCount;
                    
                 } else {
@@ -127,7 +132,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
                     var summaryObj = new Object();
                     summaryObj['division'] = data.divisionName;
                     summaryObj[categoryIdxField] = data.issueCount;
-                    summaryObj['issuesClosed'] = data.issuesClosed;
+                    //summaryObj['issuesClosed'] = data.issuesClosed;
                     summary_data.push(summaryObj);
                 }
                 
@@ -148,16 +153,49 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 			    if(isNew){
 			    	data_fields.push(fieldname);
 			    }
-                
-                //issues received summary section
-                
 			});
-			
+			issuesClosed[categoryIdxField] = totalIssuesClosed;
+            
+            //All fields have been identified; Need not go through the routine to identify the fields anymore
 			hasIdentifiedFields = true;
-			
 			data.push(obj);
 		});
 		
+        
+        
+        // Summarize and add 3 rows to summary_data
+        // the total issues, total closed, and percentage of issues closed
+        var issueTotal = new Object({'division' : 'Total Issues Received'});
+        
+        //Calculate the percentage of issues closed for each issue category field
+        Ext.each(summary_data, function(row_data, idx){
+            for(var field in row_data){
+                if(field != 'division'){
+                   if(issueTotal[field] == undefined) {
+                        issueTotal[field] = row_data[field];
+                   } else {
+                        issueTotal[field] = issueTotal[field] + row_data[field];
+                   }
+                }
+            }
+        });
+        
+        summary_data.push(issueTotal);
+        summary_data.push(issuesClosed);
+        
+        var percentageOfIssuesClosed = new Object({'division' : '% of Issues Closed'});
+        console.log(summary_fields);
+        
+        Ext.each(summary_fields, function(field, fieldIdx){
+            console.log(field.name);
+            if(field.name != 'division' || field.name == 'issuesClosed'){
+                totalObj = summary_data[summary_data.length - 2];
+                closedObj = summary_data[summary_data.length - 1];
+                percentageOfIssuesClosed[field.name] = (closedObj[field.name]/ ( totalObj[field.name]) * 100) + '%'; 
+            }
+        });
+        summary_data.push(percentageOfIssuesClosed);
+        
         console.log(summary_data);
         
         // ~ Dynamic model definitions ============================
@@ -189,8 +227,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		    }
 		});
 		
-      
-        
         //Retrieve the reference of the chart and data grid
         var tableDataRef = Ext.getCmp('issuesreceivedtabledata');
         var issuesReceivedChartRef = Ext.getCmp('issuesreceivedchart')
