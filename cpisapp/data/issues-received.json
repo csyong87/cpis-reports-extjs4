@@ -4,55 +4,70 @@
 		categoryname: 'Traffic Management',
 		divisions:[{
 			divisionName: 'South East',
-			issueCount: 180
+			issueCount: 180,
+            issuesClosed: 160
 		},{
 			divisionName: 'South West',
-			issueCount: 70
+			issueCount: 70,
+            issuesClosed: 55
 		},{
 			divisionName: 'Central',
-			issueCount: 220
+			issueCount: 220,
+            issuesClosed: 205
 		},{
 			divisionName: 'North West',
-			issueCount: 100
+			issueCount: 100,
+            issuesClosed: 90
 		},{
 			divisionName: 'North East',
-			issueCount: 67
+			issueCount: 67,
+            issuesClosed: 60
 		}]
 	},{
 		categoryname: 'Bus Service',
 		divisions:[{
 			divisionName: 'South East',
-			issueCount: 10
+			issueCount: 10,
+            issuesClosed: 8
 		},{
 			divisionName: 'South West',
-			issueCount: 15
+			issueCount: 15,
+            issuesClosed: 13
 		},{
 			divisionName: 'Central',
-			issueCount: 17
+			issueCount: 17,
+            issuesClosed: 15
 		},{
 			divisionName: 'North West',
-			issueCount: 22
+			issueCount: 22,
+            issuesClosed: 21
 		},{
 			divisionName: 'North East',
-			issueCount: 18
+			issueCount: 18,
+            issuesClosed: 15
 		}]
 	},{
 		categoryname: 'Train Service',
 		divisions:[{
 			divisionName: 'South East',
-			issueCount: 56
+			issueCount: 56,
+            issuesClosed: 50
 		},{
 			divisionName: 'South West',
-			issueCount: 45
+			issueCount: 45,
+            issuesClosed: 40
 		},{
 			divisionName: 'Central',
-			issueCount: 12
+			issueCount: 12,
+            issuesClosed: 10
 		},{
 			divisionName: 'North West',
-			issueCount: 9
+			issueCount: 9,
+            issuesClosed: 7
 		},{
 			divisionName: 'North East',
-			issueCount: 1
+			issueCount: 10,
+            issuesClosed: 8
 		}]
 	}]
 }
