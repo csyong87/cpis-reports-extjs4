@@ -25,6 +25,9 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
     
     // ~ Initialization methods =========================================
     
+    /**
+     * In this method are stores (remote) being called.
+     */
 	onLaunch : function() {
 		var monthsStore = this.getMonthsStore();
 		monthsStore.load();
@@ -36,6 +39,10 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		issuesReceivedStore.on('load', this.onIssueReceivedStoreLoad, this);
 		issuesReceivedStore.load();
 	},
+    
+    /**
+     * Bind call back handlers to UI Views
+     */
 	init : function() {
 		this.control({
 			'numissuesreceivedsearchform button[action=search]' : {

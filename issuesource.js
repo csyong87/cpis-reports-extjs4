@@ -4,8 +4,8 @@ Ext.application({
     appFolder: 'cpisapp',
     autoCreateViewport: false,
     controllers:  ['issuesource.IssueSource'],
-    models: ['Division','IssuesReceived', 'Month', 'Year'],
-    stores: ['Divisions', 'Months', 'Years'],
+    models: ['Division', 'Month', 'Year', 'IssueSource'],
+    stores: ['Divisions', 'Months', 'Years', 'IssueSource'],
     launch: function() {
        Ext.create('CPIS.view.issuesource.Viewport');
     }
