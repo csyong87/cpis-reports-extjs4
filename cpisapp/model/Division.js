@@ -21,6 +21,9 @@ Ext.define('CPIS.model.Division', {
 	associations : [ {
 		type : 'belongsTo',
 		model : 'CPIS.model.IssueCategory'
-	}]
-
+	}, {
+        type : 'hasMany',
+        model : 'CPIS.model.IssueSource',
+        name : 'issuesourcelist'
+    }]
 });

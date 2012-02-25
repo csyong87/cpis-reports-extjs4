@@ -1,3 +1,6 @@
+/**
+ * Retrieves the summary of issues by source for all divisions.
+ */
 Ext.define('CPIS.store.IssueSource', {
     extend: 'Ext.data.Store',
     model: 'CPIS.model.IssueSource',

@@ -1,6 +1,6 @@
 Ext.define('CPIS.controller.issuesource.IssueSource', {
     extend: 'Ext.app.Controller',
-    stores : ['Divisions', 'IssueSource', 'Months', 'Years'],
+    stores : ['Divisions', 'IssueSource', 'Months', 'Years', 'IssueSourceSummary'],
     onLaunch: function(){
         var divisionsStore = this.getDivisionsStore();
         divisionsStore.load();
@@ -13,6 +13,10 @@ Ext.define('CPIS.controller.issuesource.IssueSource', {
         
         var issueSourceStore = this.getIssueSourceStore();
         issueSourceStore.load();
+        
+        var issueSourceSummaryStore = this.getIssueSourceSummaryStore();
+        issueSourceSummaryStore.on('load', this.onIssueSourceSummaryLoad, this);
+        issueSourceSummaryStore.load();
     },
     
     init: function(){
@@ -31,5 +35,9 @@ Ext.define('CPIS.controller.issuesource.IssueSource', {
     
     onIssueSourceSearch : function(){
         
+    },
+    
+    onIssueSourceSummaryLoad: function(store, records, options){
+    
     }
 });

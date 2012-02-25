@@ -3,6 +3,10 @@ Ext.define('CPIS.model.IssueSource', {
     fields: [
         {name: 'sourcecategory', type: 'String'}, 
         { name: 'count', type: 'int'}
-    ]
+    ],
+    associations : [ {
+        type : 'belongsTo',
+        model : 'CPIS.model.Division'
+    }]
     
 });

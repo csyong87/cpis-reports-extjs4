@@ -71,7 +71,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	 * Transforms the data from a nested model (IssuesReceived <- Division) to a
 	 * flat model
 	 * 
-     * - Do i care to move the content of this method to a helper class? Lols
+     * TODO - Do i care to refactor this method? Lols
      * 
 	 * @param {}
 	 *            store
@@ -253,7 +253,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         
         //Retrieve the reference of the chart and data grid
         var tableDataRef = Ext.getCmp('issuesreceivedtabledata');
-        var issuesReceivedChartRef = Ext.getCmp('issuesreceivedchart')
+        var issuesReceivedChartRef = Ext.getCmp('issuesreceivedchart');
         
         var viewPort = this.getViewPort();
         
@@ -342,6 +342,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 	                xtype: 'numberfield'
 	            },
                 renderer: function(value){
+                    //format only if we have decimal values
                     if(value.indexOf('.') != -1) {
                         value = parseFloat(value).toFixed(2); //two decimal places only
                         return addSeparatorsNF(value, ',', '.', ',') + '%'; 
