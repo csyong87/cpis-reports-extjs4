@@ -191,7 +191,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
             if(field.name != 'division' || field.name == 'issuesClosed'){
                 totalObj = summary_data[summary_data.length - 2];
                 closedObj = summary_data[summary_data.length - 1];
-                percentageOfIssuesClosed[field.name] = (closedObj[field.name]/ ( totalObj[field.name]) * 100) + '%'; 
+                percentageOfIssuesClosed[field.name] = (closedObj[field.name]/ ( totalObj[field.name]) * 100); 
             }
         });
         summary_data.push(percentageOfIssuesClosed);
@@ -211,8 +211,12 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         });
         
         // ~ Dynamic store instances ==================================
-        var dataWrapper = new Object();
-        dataWrapper['data'] = data;
+        
+        //used by the charts
+        var dataWrapper = new Object({'data' : data}); 
+        
+        //used by the table data
+        var summaryDataWrapper = new Object({'data' : summary_data}); 
         
 		var dynaStore = Ext.create('Ext.data.Store', {
 			model: model,
@@ -227,6 +231,19 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 		    }
 		});
 		
+        var summaryStore = Ext.create('Ext.data.Store', {
+            model: summaryModel,
+            require: summaryModel,
+            data: summaryDataWrapper, 
+            proxy: {
+                type: 'memory',
+                reader: {
+                    type: 'json',
+                    root: 'data'                    
+                }
+            }
+        });
+        
         //Retrieve the reference of the chart and data grid
         var tableDataRef = Ext.getCmp('issuesreceivedtabledata');
         var issuesReceivedChartRef = Ext.getCmp('issuesreceivedchart')
@@ -298,25 +315,33 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         
         //define the first column
         var category_column = {
-            text: 'Issue Category',
-            width: 298,
+            text: 'Divisions',
+            width: 200,
             sortable: false,
             hideable: false,
-            dataIndex: 'categoryname'
+            dataIndex: 'division'
         };
         
         //The rest of the columns
         var statistics_column = [];
-        for (var field in fieldAliasToDisplayName){
+        for (var field in categoryIdxLabelMap){
             statistics_column.push({
-                header: fieldAliasToDisplayName[field],
+                header: categoryIdxLabelMap[field],
                 width: 100,
                 sortable: false,
                 hideable: false,
                 dataIndex: field,
                 field: {
 	                xtype: 'numberfield'
-	            }
+	            },
+                renderer: function(value){
+                    if(value.indexOf('.') != -1) {
+                        value = parseFloat(value).toFixed(2); //two decimal places only
+                        return addSeparatorsNF(value, ',', '.', ',') + '%'; 
+                    } else {
+                        return value;
+                    }
+                }
             });
         }
         
@@ -326,10 +351,10 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         ]);
             
         var tableData = Ext.create('Ext.grid.Panel', {
-		    store: dynaStore,
+		    store: summaryStore,
             id: 'issuesreceivedtabledata',
 		    width: '100%',
-		    height: 200,
+		    height: 300,
 		    title: 'Issues Received by Division',
 		    columns: columns
 		});

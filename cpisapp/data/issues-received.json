@@ -69,5 +69,28 @@
 			issueCount: 10,
             issuesClosed: 8
 		}]
-	}]
+	},{
+        categoryname: 'Enforcement',
+        divisions:[{
+            divisionName: 'South East',
+            issueCount: 80,
+            issuesClosed: 70
+        },{
+            divisionName: 'South West',
+            issueCount: 90,
+            issuesClosed: 85
+        },{
+            divisionName: 'Central',
+            issueCount: 130,
+            issuesClosed: 120
+        },{
+            divisionName: 'North West',
+            issueCount: 95,
+            issuesClosed: 93
+        },{
+            divisionName: 'North East',
+            issueCount: 70,
+            issuesClosed: 65
+        }]
+    }]
 }
