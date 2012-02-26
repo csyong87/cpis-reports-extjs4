@@ -3,7 +3,7 @@
     divisions:[{
         divisionName: 'South East',
         issuesourcelist:[{
-            sourcecategory: 'Emails / Phone calls / SMSes'
+            sourcecategory: 'Emails / Phone calls / SMSes',
             count: 50
         },{
             sourcecategory: 'CCC / RC / NC',
@@ -21,7 +21,7 @@
     }, {
         divisionName: 'South West',
         issuesourcelist:[{
-            sourcecategory: 'Emails / Phone calls / SMSes'
+            sourcecategory: 'Emails / Phone calls / SMSes',
             count: 20
         },{
             sourcecategory: 'CCC / RC / NC',
@@ -39,7 +39,7 @@
     }, {
         divisionName: 'Central',
         issuesourcelist:[{
-            sourcecategory: 'Emails / Phone calls / SMSes'
+            sourcecategory: 'Emails / Phone calls / SMSes',
             count: 15
         },{
             sourcecategory: 'CCC / RC / NC',

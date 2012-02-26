@@ -89,10 +89,10 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         var fieldAliasToDisplayName = new Object();
         var categoryIdxLabelMap = new Object();
         // the array used to hold the field definitions for the dynamic model used by the issues received chart 
-		var fields = [{name: 'categoryname', type: 'String'}];
+		var chartFields = [{name: 'categoryname', type: 'String'}];
         
         // the array used to hold the field definitions for the dynamic model used by the issues received summary
-        var summary_fields = [{name: 'division', type: 'String'}];
+        var summaryFields = [{name: 'division', type: 'String'}];
         
         // The object to hold the total of issues closed per category
         var issuesClosed = new Object({'division' : 'Total Issues Closed'});
@@ -105,7 +105,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 			obj['categoryname'] = issuecategory.data.categoryname;
             
             var categoryIdxField = 'category_' + categoryIdx;
-            summary_fields.push({name: categoryIdxField, type: 'String'});
+            summaryFields.push({name: categoryIdxField, type: 'String'});
             categoryIdxLabelMap[categoryIdxField] = issuecategory.data.categoryname;
             
             var totalIssuesClosed = 0;
@@ -114,7 +114,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
                 var fieldname = 'data_idx_' + index;
 			    
                 obj[fieldname] = data.issueCount;
-                
                 totalIssuesClosed += data.issuesClosed;
                 
                 //check if we have an instance of the division
@@ -133,7 +132,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
                     var summaryObj = summary_data[i];
                     //summaryObj['issuesClosed'] =  summaryObj['issuesClosed'] + data.issuesClosed;
                     summaryObj[categoryIdxField] = data.issueCount;
-                   
                 } else {
                     //we dont have an instance of the division yet; We have to create
                     var summaryObj = new Object();
@@ -144,7 +142,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
                 }
                 
                 if(!hasIdentifiedFields){
-			    	fields.push({name : fieldname, type: 'String'});
+			    	chartFields.push({name : fieldname, type: 'String'});
                     legend.push(data.divisionName);
                     fieldAliasToDisplayName[fieldname] = data.divisionName;
 			    }
@@ -168,8 +166,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
 			data.push(obj);
 		});
 		
-        
-        
         // Summarize and add 3 rows to summary_data
         // the total issues, total closed, and percentage of issues closed
         var issueTotal = new Object({'division' : 'Total Issues Received'});
@@ -191,9 +187,9 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         summary_data.push(issuesClosed);
         
         var percentageOfIssuesClosed = new Object({'division' : '% of Issues Closed'});
-        console.log(summary_fields);
+        console.log(summaryFields);
         
-        Ext.each(summary_fields, function(field, fieldIdx){
+        Ext.each(summaryFields, function(field, fieldIdx){
             console.log(field.name);
             if(field.name != 'division' || field.name == 'issuesClosed'){
                 totalObj = summary_data[summary_data.length - 2];
@@ -209,12 +205,12 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         
 		var model = Ext.define('DynamicModel', {
 			extend : 'Ext.data.Model',
-			fields: fields
+			fields: chartFields
 		});
 		
         var summaryModel = Ext.define('SummaryModel', {
             extend: 'Ext.data.Model', 
-            fields: summary_fields
+            fields: summaryFields
         });
         
         // ~ Dynamic store instances ==================================
@@ -321,16 +317,15 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         var columns = []; //Holds the dynamic table's columns
         
         //define the first column
-        var category_column = {
+        var statistics_column = [{
             text: 'Divisions',
             width: 200,
             sortable: false,
             hideable: false,
             dataIndex: 'division'
-        };
+        }];
         
         //The rest of the columns
-        var statistics_column = [];
         for (var field in categoryIdxLabelMap){
             statistics_column.push({
                 header: categoryIdxLabelMap[field],
@@ -354,7 +349,6 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         }
         
         columns.push([
-            category_column,
             statistics_column
         ]);
             
