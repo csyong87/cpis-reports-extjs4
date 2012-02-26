@@ -67,7 +67,8 @@ Ext.define('CPIS.controller.issuesource.IssueSource', {
         store.each(function(divisionObj, index){
            var tableRowData = new Object({'division' : divisionObj.data.divisionName});
            
-           //iterate through the issue source in the division 
+           //iterate through the issue source in the division
+           var divisionTotal = 0;
            Ext.each(divisionObj.raw.issuesourcelist, function(issueSrc, issueSrcIdx){
                 var fieldIdxName = 'issuesrc_field_' + issueSrcIdx;
                 if(!fieldsIdentified){
@@ -76,10 +77,13 @@ Ext.define('CPIS.controller.issuesource.IssueSource', {
                 }
                 
                 tableRowData[fieldIdxName] = issueSrc.count;
+                divisionTotal += issueSrc.count;
            });
+            tableRowData['divisiontotal'] = divisionTotal;
             fieldsIdentified = true;
             tableData.push(tableRowData);
         });
+        fields.push({name: 'divisiontotal', type: 'int'});
         
         //add the table data into the wrapper so that store can
         //make used of it
@@ -116,15 +120,22 @@ Ext.define('CPIS.controller.issuesource.IssueSource', {
         }];
         
         for(var f in fieldAliasMap){
-            
             table_columns.push({
 	            text: fieldAliasMap[f],
 	            sortable: false,
-                width: fieldAliasMap[f].length * 5.50, //calculate header width based on header length
+                width: Math.ceil(fieldAliasMap[f].length * 5.80), //calculate header width based on header length
 	            hideable: false,
 	            dataIndex: f
 	        });
         }
+        
+        table_columns.push({
+            text: 'Total',
+            sortable: false,
+            width: 100, //calculate header width based on header length
+            hideable: false,
+            dataIndex: 'divisiontotal'
+        });
         
         var viewPortPanel = this.getViewPortPanel();
         
@@ -140,7 +151,7 @@ Ext.define('CPIS.controller.issuesource.IssueSource', {
             id: 'issuesourcetabledata',
             width: '100%',
             height: 200,
-            title: 'Breakdown of Issue Source by Division',
+            title: 'Breakdown of issue by source by division',
             columns: table_columns
         });
         
