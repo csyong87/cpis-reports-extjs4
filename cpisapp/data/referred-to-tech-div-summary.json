@@ -1,0 +1,58 @@
+{
+	success: true,
+	divisions: [{
+		 divisionName: 'South East',
+		 techdivlist:[{
+		 	techdiv: 'TM / ITSC / RSEU',
+		 	count: 30
+		 },{
+		 	techdiv: 'RIM',
+		 	count: 50
+		 }, {
+		 	techdiv: 'ARCH',
+		 	count: 20
+		 }, {
+		 	techdiv: 'BVL / SPL',
+		 	count: 15
+		 }, {
+		 	techdiv: 'Projects',
+		 	count: 10
+		 }, {
+		 	techdiv: 'VTL - ENF',
+		 	count: 15
+		 }, {
+		 	techdiv: 'Other LTA Divisions',
+		 	count: 25
+		 }, {
+		 	techdiv: 'Others(External)',
+		 	count: 19
+		 }]
+	}, {
+		divisionName: 'South West',
+		 techdivlist:[{
+		 	techdiv: 'TM / ITSC / RSEU',
+		 	count: 10
+		 },{
+		 	techdiv: 'RIM',
+		 	count: 12
+		 }, {
+		 	techdiv: 'ARCH',
+		 	count: 27
+		 }, {
+		 	techdiv: 'BVL / SPL',
+		 	count: 18
+		 }, {
+		 	techdiv: 'Projects',
+		 	count: 15
+		 }, {
+		 	techdiv: 'VTL - ENF',
+		 	count: 20
+		 }, {
+		 	techdiv: 'Other LTA Divisions',
+		 	count: 30
+		 }, {
+		 	techdiv: 'Others(External)',
+		 	count: 15
+		 }]
+	}]
+}

@@ -25,5 +25,9 @@ Ext.define('CPIS.model.Division', {
         type : 'hasMany',
         model : 'CPIS.model.IssueSource',
         name : 'issuesourcelist'
+    }, {
+        type : 'hasMany',
+        model : 'CPIS.model.ReferredToTechDivSummary',
+        name : 'techdivlist'
     }]
 });

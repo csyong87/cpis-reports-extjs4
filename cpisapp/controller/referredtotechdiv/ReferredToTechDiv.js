@@ -3,7 +3,7 @@ Ext.define('CPIS.controller.referredtotechdiv.ReferredToTechDiv', {
 	// ~ View refs =====================================
 
 	// ~ Store definitions ===================================
-	stores : [ 'Divisions', 'ReferredToTechDiv', 'Months', 'Years' ],
+	stores : [ 'Divisions', 'ReferredToTechDiv', 'Months', 'Years', 'ReferredToTechDivSummary'],
 
 	// ~ Initialization methods =========================================
 
@@ -15,6 +15,8 @@ Ext.define('CPIS.controller.referredtotechdiv.ReferredToTechDiv', {
 		this.getMonthsStore().load();
 		this.getYearsStore().load();
 		this.getReferredToTechDivStore().load();
+		var referredToTechDivStore = this.getReferredToTechDivSummaryStore();
+		referredToTechDivStore.on('load', this.onReferredToTechDivStoreLoad, this);
 	},
 
 	/**
@@ -35,6 +37,10 @@ Ext.define('CPIS.controller.referredtotechdiv.ReferredToTechDiv', {
 	},
 	
 	onReferredToTechDivSearch: function(selModel, selection){
+		
+	}, 
+	
+	onReferredToTechDivStoreLoad: function(store, records, options){
 		
 	}
 });
