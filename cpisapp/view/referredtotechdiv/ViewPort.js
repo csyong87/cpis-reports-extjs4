@@ -1,7 +1,8 @@
 Ext.define('CPIS.view.referredtotechdiv.Viewport', {
     extend: 'Ext.container.Viewport',
     requires: [
-        'CPIS.view.referredtotechdiv.SearchForm'
+        'CPIS.view.referredtotechdiv.SearchForm',
+        'CPIS.view.referredtotechdiv.ReferredToTechDivChart'
     ],
     layout: 'fit',
     initComponent: function() {
@@ -15,6 +16,9 @@ Ext.define('CPIS.view.referredtotechdiv.Viewport', {
             items: [{
                 width: 800,
                 xtype: 'referredtotechdivsearchform'
+            }, {
+            	width: 800,
+                xtype: 'referredtotechdivchart'
             }]
         };
         

@@ -1,0 +1,27 @@
+{
+	divisions: [{
+		division: 'TM / ITSC / RSEU',
+		count: 88
+	}, {
+		division: 'RIM',
+		count: 120
+	}, {
+		division: 'ARCH',
+		count: 77
+	}, {
+		division: 'BVL / SPL',
+		count: 96
+	}, {
+		division: 'Projects',
+		count: 56
+	}, {
+		division: 'VTL - ENF',
+		count: 69
+	}, {
+		division: 'Other LTA Divisions',
+		count: 100
+	}, {
+		division: 'Others(External)',
+		count: 79
+	}]
+}
