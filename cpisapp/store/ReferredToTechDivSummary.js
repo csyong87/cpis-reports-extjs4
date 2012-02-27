@@ -1,7 +1,7 @@
 Ext.define('CPIS.store.ReferredToTechDivSummary', {
 	extend: 'Ext.data.Store',
-	model: 'CPIS.model.ReferredToTechDivSummary',
-	requires: 'CPIS.model.ReferredToTechDivSummary',
+	model: 'CPIS.model.Division',
+	requires: 'CPIS.model.Division',
 	proxy: {
 		type : 'ajax',
         url : 'cpisapp/data/referred-to-tech-div-summary.json',
