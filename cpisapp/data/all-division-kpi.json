@@ -1,0 +1,40 @@
+{
+	success: true,
+	divisionkpi:[{
+		label: 'Apr - 2011',
+		percentage: 70.88
+	},{
+		label: 'May - 2011',
+		percentage: 87.91
+	}, {
+		label: 'Jun - 2011',
+		percentage: 90.00
+	}, {
+		label: 'Jul - 2011',
+		percentage: 68.23
+	}, {
+		label: 'Aug - 2011',
+		percentage: 69.00
+	}, {
+		label: 'Sep - 2011',
+		percentage: 78.23
+	}, {
+		label: 'Oct - 2011',
+		percentage: 65.23
+	}, {
+		label: 'Nov - 2011',
+		percentage: 60.00
+	}, {
+		label: 'Dec - 2011',
+		percentage: 55.00
+	}, {
+		label: 'Jan - 2012',
+		percentage: 78.00
+	}, {
+		label: 'Feb - 2012',
+		percentage: 75.00
+	}, {
+		label: 'Mar - 2012',
+		percentage: 68.23
+	}]
+}
