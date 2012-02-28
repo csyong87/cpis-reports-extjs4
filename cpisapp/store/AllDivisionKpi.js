@@ -1,7 +1,7 @@
 Ext.define('CPIS.store.AllDivisionKpi', {
 	extend: 'Ext.data.Store',
-	model: 'CPIS.model.AllDivisionKpi',
-	requires: 'CPIS.model.AllDivisionKpi',
+	model: 'CPIS.model.Kpi',
+	requires: 'CPIS.model.Kpi',
 	// Overriding the model's default proxy
     proxy : {
         type : 'ajax',

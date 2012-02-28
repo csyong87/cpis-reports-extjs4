@@ -17,6 +17,9 @@ Ext.define('CPIS.model.Division', {
 	}, {
         name: 'issuesClosed',
         type : 'int'
+    }, {
+    	name: 'percentage',
+		type: 'float'
     }],
 	associations : [ {
 		type : 'belongsTo',
@@ -29,5 +32,8 @@ Ext.define('CPIS.model.Division', {
         type : 'hasMany',
         model : 'CPIS.model.ReferredToTechDivSummary',
         name : 'techdivlist'
+    },{
+    	type : 'belongsTo',
+        model : 'CPIS.model.Kpi'
     }]
 });

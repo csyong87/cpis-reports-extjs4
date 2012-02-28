@@ -3,8 +3,8 @@ Ext.define('CPIS.view.alldivisionkpi.AllDivisionKpiChart', {
 	alias: 'widget.alldivisionkpichart',
 	animate : true,
 	store : 'AllDivisionKpi',
-	width : 400,
-	height : 400,
+	width : 800,
+	height : 300,
 	shadow : true,
 	insetPadding : 60,
 	style: 'background:#fff',
@@ -51,6 +51,6 @@ Ext.define('CPIS.view.alldivisionkpi.AllDivisionKpiChart', {
             color: '#333'
         },
         xField: 'label',
-        yField: 'percentage',
+        yField: 'percentage'
     }]
 });

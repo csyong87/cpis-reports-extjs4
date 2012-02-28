@@ -1,7 +1,8 @@
 Ext.define('CPIS.view.alldivisionkpi.Viewport', {
     extend: 'Ext.container.Viewport',
 	requires: [
-        'CPIS.view.alldivisionkpi.AllDivisionKpiChart'
+        'CPIS.view.alldivisionkpi.AllDivisionKpiChart',
+        'CPIS.view.alldivisionkpi.AllDivisionPanel'
     ],
 	layout: 'fit',
 	initComponent: function() {
@@ -14,7 +15,7 @@ Ext.define('CPIS.view.alldivisionkpi.Viewport', {
             },
             items: [{
                 width: 800,
-                xtype: 'alldivisionkpichart'
+                xtype: 'alldivisionkpipanel'
             }]
         };
 		
