@@ -196,10 +196,10 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         summary_data.push(issuesClosed);
         
         var percentageOfIssuesClosed = new Object({'division' : '% of Issues Closed'});
-        console.log(summaryFields);
+        //console.log(summaryFields);
         
         Ext.each(summaryFields, function(field, fieldIdx){
-            console.log(field.name);
+            //console.log(field.name);
             if(field.name != 'division' || field.name == 'issuesClosed'){
                 totalObj = summary_data[summary_data.length - 2];
                 closedObj = summary_data[summary_data.length - 1];
@@ -208,7 +208,7 @@ Ext.define('CPIS.controller.numissuesreceived.NumIssuesReceived', {
         });
         summary_data.push(percentageOfIssuesClosed);
         
-        console.log(summary_data);
+        //console.log(summary_data);
         
         // ~ Dynamic model definitions ============================
         
