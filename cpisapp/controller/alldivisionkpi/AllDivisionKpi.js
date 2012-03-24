@@ -58,7 +58,7 @@ Ext.define('CPIS.controller.alldivisionkpi.AllDivisionKpi', {
 			fieldsIdentified = true;
 			chartdata.push(valueObj);
 		});
-		console.log(chartdata);
+		//console.log(chartdata);
 		
 		var model = Ext.define('DynamicModel', {
 			extend: 'Ext.data.Model',
