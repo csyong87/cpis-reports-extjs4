@@ -33,16 +33,20 @@ Ext.define('CPIS.model.Division', {
 	associations : [ {
 		type : 'belongsTo',
 		model : 'CPIS.model.IssueCategory'
-	}, {
+	},{
         type : 'hasMany',
         model : 'CPIS.model.IssueSource',
         name : 'issuesourcelist'
-    }, {
+    },{
         type : 'hasMany',
         model : 'CPIS.model.ReferredToTechDivSummary',
         name : 'techdivlist'
     },{
     	type : 'belongsTo',
         model : 'CPIS.model.Kpi'
+    },{
+        type : 'hasMany',
+        model : 'CPIS.model.Grc',
+        name : 'grclist'
     }]
 });

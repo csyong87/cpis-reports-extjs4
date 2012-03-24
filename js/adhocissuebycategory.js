@@ -8,14 +8,17 @@
  * 
  */
 /**
- * This class represents an issue category.
+ * This class is the entry point for the adhoc issue by category chart
  */
-Ext.define('CPIS.model.IssuesReceived', {
-	extend : 'Ext.data.Model',
-	fields : [ 'categoryname' ],
-	associations : [ {
-		type : 'hasMany',
-		model : 'CPIS.model.Divisions',
-		name : 'divisions'
-	}]
+Ext.require('Ext.chart.*');
+Ext.application({
+    name: 'CPIS',
+    appFolder: 'cpisapp',
+	autoCreateViewport: false,
+	controllers:  ['adhocissuebycategory.AdhocSearchFormController'],
+	models: ['Division','Grc', 'Constituency'],
+	stores: ['AdhocIssueByCategory', 'Divisions', 'Grcs', 'Constituencies'],
+	launch: function() {
+       Ext.create('CPIS.view.adhocissuebycategory.Viewport');
+    }
 });

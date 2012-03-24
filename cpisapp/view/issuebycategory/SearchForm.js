@@ -15,7 +15,7 @@ Ext.define('CPIS.view.issuebycategory.SearchForm', {
 	defaultType: 'textfield',
 	items: [{
 		xtype: 'combobox',
-		fieldLabel: 'Division',
+		fieldLabel: 'Division',		
 		name: 'division',
 		store: 'Divisions',
 		displayField: 'divisionName',
@@ -42,6 +42,24 @@ Ext.define('CPIS.view.issuebycategory.SearchForm', {
 	    allowBlank: false,
 	    baseCls: 'fwd_floatLeft',
 		anchor: '20%',
+		labelWidth: 50,
+		validator: function(val){
+			if(val == null) {
+				return 'This field is required';
+			}
+			return true;
+		}
+	},{
+		xtype: 'combobox',
+		fieldLabel: 'Year',
+		name: 'year',
+		store: 'Years',
+		displayField: 'year',
+	    valueField: 'year',
+		baseCls: 'fwd_floatLeft',
+		anchor: '20%',
+		queryMode: 'local',
+		allowBlank: false,
 		labelWidth: 50,
 		validator: function(val){
 			if(val == null) {
