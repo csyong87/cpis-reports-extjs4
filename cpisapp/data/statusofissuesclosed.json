@@ -1,0 +1,19 @@
+{
+    success: true,
+    datalist:[{
+        category: 'CPN in behalf of other agencies',
+        count: 72
+    }, {
+        category: 'External Agencies',
+        count: 65
+    },{
+        category: 'Traffic Management',
+        count: 120
+    }, {
+        category: 'RSEU',
+        count: 70
+    }, {
+        category: 'Architecture',
+        count: 85
+    }]
+}
